@@ -19,6 +19,20 @@ def getDataSeq(request):
     serializer = RecordSerializer(records, many=True)
     return Response({"status": "success", "data": serializer.data}, status=status.HTTP_200_OK)
 
+@api_view(['GET'])
+def getReq(request):
+    query = request.GET.dict()
+    queryKey = list(query.items())[0][0]
+    queryitem = list(query.items())[0][1]
+    if query:
+      #records = Record.objects.all()
+      records = Record.objects.filter(**{queryKey: queryitem})
+      serializer = RecordSerializer(records, many=True)
+      return Response({"status": "success", "data": serializer.data}, status=status.HTTP_200_OK)
+    
+    return Response({"status": "error", "data": "no query"}, status=status.HTTP_400_BAD_REQUEST)   
+      
+
 # Posts a new record
 @api_view(['POST'])
 def postData(request):
