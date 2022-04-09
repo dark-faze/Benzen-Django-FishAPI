@@ -5,5 +5,9 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('', views.getData),
-    path('post/', views.postData)
+    path('addRecord/', views.postData),
+    path('getRecord/', views.getDataSeq)
+
 ] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+
+#addRecord is for adding a fish record
